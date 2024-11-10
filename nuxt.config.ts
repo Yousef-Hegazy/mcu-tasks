@@ -5,11 +5,9 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
   css: ["~/assets/css/tailwind.css"],
-
   future: {
     compatibilityVersion: 4,
   },
-
   experimental: {
     scanPageMeta: "after-resolve",
     sharedPrerenderData: false,
@@ -24,20 +22,16 @@ export default defineNuxtConfig({
       },
     },
   },
-
   unhead: {
     renderSSRHeadOptions: {
       omitLineBreaks: false,
     },
   },
 
-  // i18n: {
-  //   locales: [
-  //     { code: "ar", language: "ar-SA", file: "ar.json", dir: "rtl", name: "العربية" },
-  //     { code: "en", language: "en-US", file: "en.json", name: "English", dir: "ltr" },
-  //   ],
-  //   defaultLocale: "ar",
-  // },
+  runtimeConfig: {
+    supabaseUrl: process.env.SUPABASE_URL,
+    supabaseApiKey: process.env.SUPABASE_API_KEY,
+  },
 
   i18n: {
     locales: [
@@ -49,22 +43,6 @@ export default defineNuxtConfig({
     langDir: "locales/", // Ensure this path is correct
     strategy: "prefix",
   },
-
-  // vuetify: {
-  //   vuetifyOptions: {
-  //     theme: false,
-  //     locale: {
-  //       fallback: "ar",
-  //       locale: "ar",
-  //       rtl: {
-  //         ar: true,
-  //         en: false,
-  //       },
-  //     },
-  //     localeMessages: ["ar", "en"],
-  //   },
-  //   moduleOptions: {},
-  // },
 
   googleFonts: {
     families: {
