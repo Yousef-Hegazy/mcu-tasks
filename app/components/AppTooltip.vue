@@ -10,7 +10,7 @@ defineProps<{
   <TooltipProvider>
     <Tooltip>
       <TooltipTrigger as-child>
-        <slot />
+        <slot></slot>
       </TooltipTrigger>
       <TooltipContent>
         <p>{{ title }}</p>

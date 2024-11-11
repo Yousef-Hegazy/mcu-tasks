@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { locale, t } = useI18n();
+const switchLocale = useSwitchLocalePath();
 
 const getDir = computed<"rtl" | "ltr">(() => (locale.value === "ar" ? "rtl" : "ltr"));
 
@@ -12,7 +13,7 @@ const fontFamily = computed(() => {
   }
 });
 
-useServerHead({
+useHead(() => ({
   title: t("title"),
   htmlAttrs: {
     lang: locale,
@@ -27,7 +28,7 @@ useServerHead({
       `,
     },
   ],
-});
+}));
 </script>
 
 <template>
@@ -37,14 +38,47 @@ useServerHead({
         {{ $t("title") }}
       </NuxtLinkLocale>
 
-      <AppTooltip :title="t('downloadReport')">
-        <Button size="icon">
-          <Icon name="hugeicons:google-sheet" class="text-xl" />
+      <ul class="flex flex-row items-center gap-x-4">
+        <Button
+          size="icon"
+          variant="secondary"
+          @click="
+            $colorMode.preference === 'light' ? ($colorMode.preference = 'dark') : ($colorMode.preference = 'light')
+          "
+        >
+          <Icon :name="$colorMode.preference === 'dark' ? 'hugeicons:sun-02' : 'hugeicons:moon-02'" />
         </Button>
-      </AppTooltip>
+
+        <AppDropdownMenu
+          :label="t('chooseLanguage')"
+          :content-props="{
+            align: 'end',
+            class: 'w-40',
+          }"
+        >
+          <template #trigger>
+            <Button size="icon" variant="secondary">
+              <Icon name="hugeicons:language-square" class="text-xl" />
+            </Button>
+          </template>
+
+          <template #items>
+            <DropdownMenuSeparator />
+
+            <DropdownMenuGroup>
+              <DropdownMenuCheckboxItem :checked="locale === 'ar'">
+                <SwitchLocalePathLink locale="ar" class="w-full font-notoAR">العربية</SwitchLocalePathLink>
+              </DropdownMenuCheckboxItem>
+              <DropdownMenuCheckboxItem :checked="locale === 'en'">
+                <SwitchLocalePathLink locale="en" class="w-full font-noto">English</SwitchLocalePathLink>
+              </DropdownMenuCheckboxItem>
+            </DropdownMenuGroup>
+          </template>
+        </AppDropdownMenu>
+      </ul>
     </nav>
-    <main class="w-full max-w-7xl mx-auto my-8">
-      <slot />
+    <main class="w-full max-w-7xl mx-auto p-4">
+      <slot></slot>
     </main>
   </div>
 </template>

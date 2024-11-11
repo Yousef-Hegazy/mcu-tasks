@@ -63,6 +63,13 @@ export default defineNuxtConfig({
     componentDir: "./app/components/ui",
   },
 
+  colorMode: {
+    preference: "system",
+    fallback: "light",
+    classSuffix: "",
+    classPrefix: "",
+  },
+
   modules: [
     "@nuxtjs/i18n",
     "@nuxtjs/google-fonts",

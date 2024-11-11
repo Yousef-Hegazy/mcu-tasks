@@ -1,5 +1,13 @@
 {
     "home": "Home",
     "title": "MCU Work Requests",
-    "downloadReport": "Download Report"
+    "downloadReport": "Download Report",
+    "chooseLanguage": "Choose Language",
+    "table": {
+        "number": "No.",
+        "title": "Title",
+        "description": "Description",
+        "status": "Status",
+        "issuer": "Issuer"
+    }
 }

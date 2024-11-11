@@ -1,5 +1,13 @@
 {
     "home": "الرئيسية",
     "title": "طلبات عمل المحايد",
-    "downloadReport": "تحميل التقرير"
+    "downloadReport": "تحميل التقرير",
+    "chooseLanguage": "اختر اللغة",
+    "table": {
+        "number": "م",
+        "title": "العنوان",
+        "description": "الوصف",
+        "status": "الحالة",
+        "issuer": "مقدم الطلب"
+    }
 }
