@@ -32,8 +32,10 @@ useHead(() => ({
 </script>
 
 <template>
-  <div class="w-full">
-    <nav class="flex flex-row items-center p-4 shadow-lg justify-between">
+  <div class="w-full max-w-7xl mx-auto">
+    <nav
+      class="flex flex-row items-center p-4 shadow-lg justify-between rounded-b-lg border-b border-neutral-300 dark:border-neutral-600"
+    >
       <NuxtLinkLocale to="/" class="text-xl font-bold">
         {{ $t("title") }}
       </NuxtLinkLocale>
@@ -77,7 +79,7 @@ useHead(() => ({
         </AppDropdownMenu>
       </ul>
     </nav>
-    <main class="w-full max-w-7xl mx-auto p-4">
+    <main class="w-full p-4 mt-4">
       <slot></slot>
     </main>
   </div>

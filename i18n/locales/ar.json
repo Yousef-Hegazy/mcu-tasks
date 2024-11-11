@@ -3,11 +3,15 @@
     "title": "طلبات عمل المحايد",
     "downloadReport": "تحميل التقرير",
     "chooseLanguage": "اختر اللغة",
-    "table": {
+    "requests": "الطلبات",
+    "addTask": "إضافة طلب",
+    "task": {
         "number": "م",
         "title": "العنوان",
         "description": "الوصف",
         "status": "الحالة",
-        "issuer": "مقدم الطلب"
+        "issuer": "مقدم الطلب",
+        "done": "منتهي",
+        "pending": "قيد الانتظار"
     }
 }
