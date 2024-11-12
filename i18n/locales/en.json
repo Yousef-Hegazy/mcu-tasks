@@ -12,6 +12,9 @@
         "status": "Status",
         "issuer": "Issuer",
         "done": "Done",
-        "pending": "Pending"
+        "pending": "Pending",
+        "new": "New",
+        "createdAt": "Date Created",
+        "finishedAt": "Date Finished"
     }
 }

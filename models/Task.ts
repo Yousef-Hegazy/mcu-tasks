@@ -1,7 +1,12 @@
 export interface Task {
   id: number;
-  title: string;
-  description: string;
+  createdAt: string;
+  titleEn: string;
+  titleAr: string;
+  descriptionEn: string;
+  descriptionAr: string;
   isFinished: boolean;
-  issuerName: string;
+  issuerEn: string;
+  issuerAr: string;
+  finishedAt?: string;
 }

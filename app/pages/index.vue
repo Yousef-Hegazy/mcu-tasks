@@ -1,27 +1,17 @@
 <script setup lang="ts">
 import { ScrollArea } from "~/components/ui/scroll-area/index";
 import type { Task } from "~~/models/Task";
+import data from "~/../data.json";
+
+const { locale } = useI18n();
 
 const tableHeads = ["number", "title", "description", "status", "issuer"];
 
 const res = useFetch("/api/test");
 
-const tasks: Task[] = [
-  {
-    id: 1,
-    title: "وظيفة 1",
-    description: "وصف 1",
-    isFinished: true,
-    issuerName: "مستخدم 1",
-  },
-  {
-    id: 2,
-    title: "وظيفة 1",
-    description: "وصف 1",
-    isFinished: false,
-    issuerName: "مستخدم 1",
-  },
-];
+const ar = computed<boolean>(() => locale.value === "ar");
+
+const tasks: Task[] = data.tasks;
 </script>
 
 <template>
@@ -56,7 +46,7 @@ const tasks: Task[] = [
         >
           <AccordionTrigger class="no-underline hover:no-underline px-4">
             <div class="w-11/12 flex flex-row items-center gap-x-4 justify-between">
-              <p class="line-clamp-1">{{ task.title }}</p>
+              <p class="line-clamp-1">{{ ar ? task.titleAr : task.titleEn }}</p>
               <p
                 class="rounded-sm shadow-sm px-2 py-1 text-xs"
                 :class="{
@@ -64,7 +54,7 @@ const tasks: Task[] = [
                   'bg-blue-600 text-white': !task.isFinished,
                 }"
               >
-                {{ task.isFinished ? $t("task.done") : $t("task.pending") }}
+                {{ task.isFinished ? $t("task.done") : $t("task.new") }}
               </p>
             </div>
           </AccordionTrigger>
@@ -72,18 +62,30 @@ const tasks: Task[] = [
             <div class="flex flex-col gap-y-4">
               <div class="flex flex-col gap-y-2">
                 <h5 class="font-semibold text-neutral-700 dark:text-neutral-400">{{ $t("task.title") }}</h5>
-                <p class="text-base">{{ task.title }}</p>
+                <p class="text-base">{{ ar ? task.titleAr : task.titleEn }}</p>
               </div>
 
               <div class="flex flex-col gap-y-2">
                 <h5 class="font-semibold text-neutral-700 dark:text-neutral-400">{{ $t("task.description") }}</h5>
-                <p class="text-base">{{ task.description }}</p>
+                <p class="text-base">{{ ar ? task.descriptionAr : task.descriptionEn }}</p>
               </div>
 
-              <div class="flex flex-col gap-y-2">
-                <h5 class="font-semibold text-neutral-700 dark:text-neutral-400">{{ $t("task.issuer") }}</h5>
-                <p class="text-base">{{ task.issuerName }}</p>
-              </div>
+              <data class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 justify-evenly">
+                <div class="flex flex-col gap-y-2">
+                  <h5 class="font-semibold text-neutral-700 dark:text-neutral-400">{{ $t("task.issuer") }}</h5>
+                  <p class="text-base">{{ ar ? task.issuerAr : task.issuerEn }}</p>
+                </div>
+
+                <div class="flex flex-col gap-y-2">
+                  <h5 class="font-semibold text-neutral-700 dark:text-neutral-400">{{ $t("task.createdAt") }}</h5>
+                  <p class="text-base">{{ task.createdAt.split("T")[0] }}</p>
+                </div>
+
+                <div v-if="task.finishedAt" class="flex flex-col gap-y-2">
+                  <h5 class="font-semibold text-neutral-700 dark:text-neutral-400">{{ $t("task.finishedAt") }}</h5>
+                  <p class="text-base">{{ task.finishedAt.split("T")[0] }}</p>
+                </div>
+              </data>
             </div>
           </AccordionContent>
         </AccordionItem>
