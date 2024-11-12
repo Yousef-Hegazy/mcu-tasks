@@ -88,10 +88,10 @@ useHead(() => ({
 <style>
 html,
 body {
-  @apply h-full;
+  height: 100%;
 }
 
 #__nuxt {
-  @apply h-full;
+  height: 100%;
 }
 </style>
