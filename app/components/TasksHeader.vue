@@ -1,9 +1,41 @@
 <script setup lang="ts">
+import * as XLSX from "xlsx";
 import type { Task } from "~~/models/Task";
 
-const { tasks } = defineProps<{
+const { t } = useI18n();
+
+const { tasks, ar } = defineProps<{
   tasks: Task[];
+  ar: boolean;
 }>();
+
+const printing = ref(false);
+
+const exportToExcel = async (name: string = "report.xlsx") => {
+  try {
+    printing.value = true;
+    const data = await Promise.resolve(
+      tasks.map((task) => ({
+        [t("task.title")]: ar ? task.titleAr : task.titleEn,
+        [t("task.description")]: ar ? task.descriptionAr : task.descriptionEn,
+        [t("task.issuer")]: ar ? task.issuerAr : task.issuerEn,
+        [t("task.createdAt")]: task.createdAt.split("T")[0],
+        [t("task.finishedAt")]: task.finishedAt ? task.finishedAt.split("T")[0] : "N/A",
+        [t("task.status")]: task.isFinished ? t("task.done") : t("task.new"),
+      }))
+    );
+    const sheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, sheet, name);
+    await XLSX.writeFileXLSX(workbook, name, {
+      cellStyles: true,
+    });
+  } catch (error) {
+    console.log(error);
+  } finally {
+    printing.value = false;
+  }
+};
 
 const tasksStats = computed(() => {
   const finished = tasks.filter((t) => t.isFinished).length;
@@ -11,7 +43,7 @@ const tasksStats = computed(() => {
   return { finished, newTasks };
 });
 
-const onPrint = () => {};
+// const onPrint = () => {};
 </script>
 
 <template>
@@ -52,8 +84,14 @@ const onPrint = () => {};
       </AppTooltip>
 
       <AppTooltip :title="$t('downloadReport')">
-        <Button size="icon" variant="outline">
-          <Icon name="hugeicons:inbox-download" class="text-2xl" />
+        <Button size="icon" variant="outline" @click="() => exportToExcel('Report.xlsx')">
+          <Icon
+            :name="printing ? 'hugeicons:loading-03' : 'hugeicons:inbox-download'"
+            class="text-2xl"
+            :class="{
+              'animate-spin': printing,
+            }"
+          />
         </Button>
       </AppTooltip>
     </div>

@@ -9,7 +9,7 @@ const { locale } = useI18n();
 
 const tableHeads = ["number", "title", "description", "status", "issuer"];
 
-const res = useFetch("/api/test");
+// const res = useFetch("/api/test");
 
 const ar = computed<boolean>(() => locale.value === "ar");
 
@@ -18,7 +18,7 @@ const tasks: Task[] = data.tasks;
 
 <template>
   <div class="w-full h-full">
-    <TasksHeader :tasks="tasks" />
+    <TasksHeader :tasks="tasks" :ar="ar" />
 
     <ScrollArea class="h-full w-full shadow-md rounded-md" :dir="$i18n.locale === 'ar' ? 'rtl' : 'ltr'">
       <Accordion type="multiple" class="w-full flex flex-col gap-y-1" collapsible>
