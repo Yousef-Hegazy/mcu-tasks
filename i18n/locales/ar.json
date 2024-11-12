@@ -15,6 +15,12 @@
         "pending": "قيد الانتظار",
         "new": "جديد",
         "createdAt": "تاريخ التقديم",
-        "finishedAt": "تاريخ الانتهاء"
+        "finishedAt": "تاريخ الانتهاء",
+        "actions": {
+            "edit": "تعديل",
+            "delete": "حذف",
+            "finish": "إنهاء",
+            "copy": "نسخ"
+        }
     }
 }

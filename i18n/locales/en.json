@@ -15,6 +15,12 @@
         "pending": "Pending",
         "new": "New",
         "createdAt": "Date Created",
-        "finishedAt": "Date Finished"
+        "finishedAt": "Date Finished",
+        "actions": {
+            "edit": "Modify",
+            "delete": "Delete",
+            "finish": "Finish",
+            "copy": "Copy"
+        }
     }
 }

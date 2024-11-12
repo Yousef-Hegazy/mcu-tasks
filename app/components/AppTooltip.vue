@@ -2,7 +2,7 @@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 defineProps<{
-  title: string;
+  title?: string;
 }>();
 </script>
 
@@ -13,7 +13,8 @@ defineProps<{
         <slot></slot>
       </TooltipTrigger>
       <TooltipContent>
-        <p>{{ title }}</p>
+        <p v-if="title">{{ title }}</p>
+        <slot name="content"></slot>
       </TooltipContent>
     </Tooltip>
   </TooltipProvider>
