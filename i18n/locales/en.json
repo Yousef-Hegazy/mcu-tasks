@@ -8,9 +8,15 @@
     "task": {
         "number": "No.",
         "title": "Title",
+        "titleAr": "Title in Arabic",
+        "titleEn": "Title in English",
         "description": "Description",
+        "descriptionAr": "Description in Arabic",
+        "descriptionEn": "Description in English",
         "status": "Status",
         "issuer": "Issuer",
+        "issuerAr": "Issuer in Arabic",
+        "issuerEn": "Issuer in English",
         "done": "Done",
         "pending": "Pending",
         "new": "New",
@@ -22,5 +28,10 @@
             "finish": "Finish",
             "copy": "Copy"
         }
+    },
+    "common": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "requiredField": "This field is required"
     }
 }

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import * as XLSX from "xlsx";
 import type { Task } from "~~/models/Task";
+import AppDialog from "./AppDialog.vue";
 
 const { t } = useI18n();
 
@@ -77,11 +78,7 @@ const tasksStats = computed(() => {
     </div>
 
     <div class="flex flex-row gap-x-3">
-      <AppTooltip :title="$t('addTask')">
-        <Button size="icon" variant="default">
-          <Icon name="hugeicons:task-add-02" class="text-xl" />
-        </Button>
-      </AppTooltip>
+      <AddTask />
 
       <AppTooltip :title="$t('downloadReport')">
         <Button size="icon" variant="outline" @click="() => exportToExcel('Report.xlsx')">

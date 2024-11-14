@@ -8,9 +8,15 @@
     "task": {
         "number": "م",
         "title": "العنوان",
+        "titleAr": "العنوان بالعربي",
+        "titleEn": "العنوان بالإنجليزي",
         "description": "الوصف",
+        "descriptionAr": "الوصف بالعربي",
+        "descriptionEn": "الوصف بالإنجليزي",
         "status": "الحالة",
         "issuer": "مقدم الطلب",
+        "issuerAr": "مقدم الطلب بالعربي",
+        "issuerEn": "مقدم الطلب بالإنجليزي",
         "done": "منتهي",
         "pending": "قيد الانتظار",
         "new": "جديد",
@@ -22,5 +28,10 @@
             "finish": "إنهاء",
             "copy": "نسخ"
         }
+    },
+    "common": {
+        "save": "حفظ",
+        "cancel": "إلغاء",
+        "requiredField": "هذا الحقل مطلوب"
     }
 }

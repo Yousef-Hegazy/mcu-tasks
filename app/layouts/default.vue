@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Toaster from "@/components/ui/toast/Toaster.vue";
+
 const { locale, t } = useI18n();
 const switchLocale = useSwitchLocalePath();
 
@@ -82,6 +84,8 @@ useHead(() => ({
     <main class="w-full p-4 mt-4">
       <slot></slot>
     </main>
+
+    <Toaster />
   </div>
 </template>
 
