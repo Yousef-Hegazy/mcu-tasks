@@ -8,6 +8,14 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
   },
+  devServer: {
+    https: {
+      key: "./192.168.8.134+1-key.pem",
+      cert: "./192.168.8.134+1.pem",
+    },
+    host: "192.168.8.134", // Replace with your IP
+    port: 3000,
+  },
   experimental: {
     scanPageMeta: "after-resolve",
     sharedPrerenderData: false,

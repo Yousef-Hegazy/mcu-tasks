@@ -12,12 +12,9 @@ const { t } = useI18n();
 
 const formSchema = toTypedSchema(
   z.object({
-    titleAr: z.string({ message: t("common.requiredField") }).min(2),
-    titleEn: z.string({ message: t("common.requiredField") }).min(2),
-    descriptionAr: z.string({ message: t("common.requiredField") }).optional(),
-    descriptionEn: z.string({ message: t("common.requiredField") }).optional(),
-    issuerAr: z.string({ message: t("common.requiredField") }).min(2),
-    issuerEn: z.string({ message: t("common.requiredField") }).min(2),
+    title: z.string({ message: t("common.requiredField") }).min(2),
+    description: z.string({ message: t("common.requiredField") }).optional(),
+    issuer: z.string({ message: t("common.requiredField") }).min(2),
   })
 );
 
@@ -31,10 +28,10 @@ const onSubmit = form.handleSubmit((values) => {
 </script>
 
 <template>
-  <form @submit="onSubmit" class="w-full grid grid-cols-1 lg:grid-cols-2 gap-4">
-    <FormField v-slot="{ componentField }" name="titleAr">
+  <form @submit="onSubmit" class="w-full grid grid-cols-1 gap-4">
+    <FormField v-slot="{ componentField }" name="title">
       <FormItem>
-        <FormLabel>{{ $t("task.titleAr") }}</FormLabel>
+        <FormLabel>{{ $t("task.title") }}</FormLabel>
         <FormControl>
           <Input type="text" v-bind="componentField" />
         </FormControl>
@@ -42,19 +39,9 @@ const onSubmit = form.handleSubmit((values) => {
       </FormItem>
     </FormField>
 
-    <FormField v-slot="{ componentField }" name="titleEn">
+    <FormField v-slot="{ componentField }" name="description">
       <FormItem>
-        <FormLabel>{{ $t("task.titleEn") }}</FormLabel>
-        <FormControl>
-          <Input type="text" v-bind="componentField" />
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    </FormField>
-
-    <FormField v-slot="{ componentField }" name="descriptionAr">
-      <FormItem>
-        <FormLabel>{{ $t("task.descriptionAr") }}</FormLabel>
+        <FormLabel>{{ $t("task.description") }}</FormLabel>
         <FormControl>
           <Textarea type="text" v-bind="componentField" />
         </FormControl>
@@ -62,29 +49,9 @@ const onSubmit = form.handleSubmit((values) => {
       </FormItem>
     </FormField>
 
-    <FormField v-slot="{ componentField }" name="descriptionEn">
+    <FormField v-slot="{ componentField }" name="issuer">
       <FormItem>
-        <FormLabel>{{ $t("task.descriptionEn") }}</FormLabel>
-        <FormControl>
-          <Textarea type="text" v-bind="componentField" />
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    </FormField>
-
-    <FormField v-slot="{ componentField }" name="issuerAr">
-      <FormItem>
-        <FormLabel>{{ $t("task.issuerAr") }}</FormLabel>
-        <FormControl>
-          <Input type="text" v-bind="componentField" />
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    </FormField>
-
-    <FormField v-slot="{ componentField }" name="issuerEn">
-      <FormItem>
-        <FormLabel>{{ $t("task.issuerEn") }}</FormLabel>
+        <FormLabel>{{ $t("task.issuer") }}</FormLabel>
         <FormControl>
           <Input type="text" v-bind="componentField" />
         </FormControl>

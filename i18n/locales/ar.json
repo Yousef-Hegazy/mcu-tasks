@@ -26,12 +26,14 @@
             "edit": "تعديل",
             "delete": "حذف",
             "finish": "إنهاء",
-            "copy": "نسخ"
+            "copy": "نسخ",
+            "restore": "استعادة"
         }
     },
     "common": {
         "save": "حفظ",
         "cancel": "إلغاء",
-        "requiredField": "هذا الحقل مطلوب"
+        "requiredField": "هذا الحقل مطلوب",
+        "N/A": "غير متوفر"
     }
 }

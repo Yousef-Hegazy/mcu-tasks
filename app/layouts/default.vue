@@ -2,7 +2,6 @@
 import Toaster from "@/components/ui/toast/Toaster.vue";
 
 const { locale, t } = useI18n();
-const switchLocale = useSwitchLocalePath();
 
 const getDir = computed<"rtl" | "ltr">(() => (locale.value === "ar" ? "rtl" : "ltr"));
 
@@ -53,7 +52,7 @@ useHead(() => ({
           <Icon :name="$colorMode.preference === 'dark' ? 'hugeicons:sun-02' : 'hugeicons:moon-02'" />
         </Button>
 
-        <AppDropdownMenu
+        <!-- <AppDropdownMenu
           :label="t('chooseLanguage')"
           :content-props="{
             align: 'end',
@@ -78,7 +77,7 @@ useHead(() => ({
               </DropdownMenuCheckboxItem>
             </DropdownMenuGroup>
           </template>
-        </AppDropdownMenu>
+        </AppDropdownMenu> -->
       </ul>
     </nav>
     <main class="w-full p-4 mt-4">

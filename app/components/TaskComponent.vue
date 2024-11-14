@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Task } from "~~/models/Task";
-import ContextMenuSeparator from "./ui/context-menu/ContextMenuSeparator.vue";
 
 const { task, ar } = defineProps<{
   task: Task;
@@ -11,58 +10,69 @@ const { task, ar } = defineProps<{
 
 const { t } = useI18n();
 
-const actions = [
-  {
-    separator: false,
-    name: "finish",
-    onClick: () => {
-      console.log("Done");
-    },
-    icon: "hugeicons:note-done",
-  },
-  {
-    separator: false,
-    name: "copy",
-    onClick: () => {
-      const text = `
-${t("task.title")}: ${ar ? task.titleAr : task.titleEn}
-${t("task.description")}: ${ar ? task.descriptionAr : task.descriptionEn}
-${t("task.issuer")}: ${ar ? task.issuerAr : task.issuerEn}
-${t("task.createdAt")}: ${task.createdAt.split("T")[0]}
-${t("task.finishedAt")}: ${task.finishedAt ? task.finishedAt.split("T")[0] : "N/A"}
-${t("task.status")}: ${task.isFinished ? t("task.done") : t("task.new")}
-      `;
-      navigator.clipboard.writeText(text);
-    },
-    icon: "hugeicons:copy-02",
-  },
-  {
-    separator: true,
-    name: "edit",
-    onClick: () => {
-      console.log("edit");
-    },
-    icon: "hugeicons:task-edit-02",
-  },
-  {
-    separator: false,
-    name: "delete",
-    onClick: () => {
-      console.log("delete");
-    },
-    icon: "hugeicons:delete-03",
-    class: "!text-rose-700 hover:!text-rose-50 hover:!bg-rose-700",
-    // iconClass: "text-inherit",
-  },
-];
+const cardData = computed(() => ({
+  // title: ar ? task.titleAr : task.titleEn,
+  issuer: task.issuer,
+  createdAt: task.createdAt.split("T")[0],
+  finishedAt: task.finishedAt ? task.finishedAt.split("T")[0] : t("common.N/A"),
+  status: task.isFinished ? t("task.done") : t("task.new"),
+}));
 </script>
 
 <template>
-  <AccordionItem
-    class="border border-neutral-300 dark:border-neutral-600 rounded-md hover:bg-gray-800/[0.03] dark:bg-background dark:hover:bg-white/5 shadow-md transition-all"
-    :value="task.id.toString()"
-  >
-    <ContextMenu>
+  <Card class="shadow-md">
+    <CardHeader class="py-3 px-4">
+      <div class="flex flex-row items-center justify-between">
+        <AppTooltip :title="task.title">
+          <CardTitle class="line-clamp-1 text-base flex flex-row items-center gap-x-2">
+            <span
+              class="text-xs font-light px-1.5 py-0.5 rounded"
+              :class="{
+                'bg-teal-600 text-teal-50': task.isFinished,
+                'bg-blue-600 text-blue-50': !task.isFinished,
+              }"
+            >
+              {{ index + 1 }}
+            </span>
+            <span>
+              {{ task.title }}
+            </span>
+          </CardTitle>
+        </AppTooltip>
+
+        <TaskActions :ar="ar" :task="task" />
+      </div>
+
+      <AppTooltip :title="task.description">
+        <CardDescription v-if="task.description">
+          <p class="text-sm line-clamp-1">{{ task.description }}</p>
+        </CardDescription>
+      </AppTooltip>
+    </CardHeader>
+
+    <div class="border-b border-neutral-300 dark:border-neutral-600"></div>
+
+    <CardContent class="py-4">
+      <div class="flex flex-col gap-y-2">
+        <div v-for="[k, v] in Object.entries(cardData)" :key="k" class="flex flex-row items-center gap-x-2">
+          <p class="text-sm font-semibold max-w-24 rtl:max-w-20 w-full">{{ t(`task.${k}`) }}:</p>
+
+          <p
+            v-if="k === 'status'"
+            class="rounded-sm shadow-sm px-2 py-1 text-sm font-medium"
+            :class="{
+              'bg-teal-600 text-teal-50': task.isFinished,
+              'bg-blue-600 text-blue-50': !task.isFinished,
+            }"
+          >
+            {{ v }}
+          </p>
+          <p v-else class="text-sm">{{ v }}</p>
+        </div>
+      </div>
+    </CardContent>
+
+    <!-- <ContextMenu>
       <ContextMenuTrigger as-child>
         <AccordionTrigger class="no-underline hover:no-underline px-4">
           <div class="w-11/12 flex flex-row items-center gap-x-4 justify-between">
@@ -139,8 +149,8 @@ ${t("task.status")}: ${task.isFinished ? t("task.done") : t("task.new")}
           </div>
         </data>
       </div>
-    </AccordionContent>
-  </AccordionItem>
+    </AccordionContent> -->
+  </Card>
 </template>
 
 <style scoped></style>

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import * as XLSX from "xlsx";
 import type { Task } from "~~/models/Task";
-import AppDialog from "./AppDialog.vue";
 
 const { t } = useI18n();
 

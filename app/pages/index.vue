@@ -21,14 +21,12 @@ const { data: tasks } = await useFetch<Task[]>("http://localhost:8080/tasks", {
   <div class="w-full h-full" v-if="tasks && tasks.length >= 0">
     <TasksHeader :tasks="tasks" :ar="ar" />
 
-    <ScrollArea
-      v-if="tasks.length > 0"
-      class="h-full w-full shadow-md rounded-md"
-      :dir="$i18n.locale === 'ar' ? 'rtl' : 'ltr'"
-    >
-      <Accordion type="multiple" class="w-full flex flex-col gap-y-1" collapsible>
+    <ScrollArea v-if="tasks.length > 0" class="h-full w-full" :dir="$i18n.locale === 'ar' ? 'rtl' : 'ltr'">
+      <!-- <Accordion type="multiple" class="w-full flex flex-col gap-y-1" collapsible> -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <TaskComponent v-for="(task, index) in tasks" :task="task" :ar="ar" :key="task.id" :index="index" />
-      </Accordion>
+      </div>
+      <!-- </Accordion> -->
     </ScrollArea>
   </div>
 

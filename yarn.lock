@@ -3537,6 +3537,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:^11.0.0":
+  version: 11.1.0
+  resolution: "commander@npm:11.1.0"
+  checksum: 10c0/13cc6ac875e48780250f723fb81c1c1178d35c5decb1abb1b628b3177af08a8554e76b2c0f29de72d69eef7c864d12613272a71fabef8047922bc622ab75a179
+  languageName: node
+  linkType: hard
+
 "commander@npm:^2.20.0":
   version: 2.20.3
   resolution: "commander@npm:2.20.3"
@@ -6245,6 +6252,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mkcert@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "mkcert@npm:3.2.0"
+  dependencies:
+    commander: "npm:^11.0.0"
+    node-forge: "npm:^1.3.1"
+  bin:
+    mkcert: dist/cli.js
+  checksum: 10c0/331a5be54aa16f1cff9ab2cbb626a7ba27a06432d2f65a20a6b9275b2188d2807fd4082535a19ce5a1c368bc603ce1a700cab0ae2db3d8f301f3983167b16eb1
+  languageName: node
+  linkType: hard
+
 "mkdirp@npm:^0.5.6":
   version: 0.5.6
   resolution: "mkdirp@npm:0.5.6"
@@ -6625,6 +6644,7 @@ __metadata:
     clsx: "npm:^2.1.1"
     json-server: "npm:^1.0.0-beta.3"
     lucide-vue-next: "npm:^0.456.0"
+    mkcert: "npm:^3.2.0"
     nuxt: "npm:^3.14.159"
     postcss: "npm:^8.4.49"
     radix-vue: "npm:^1.9.9"
