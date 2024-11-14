@@ -27,9 +27,9 @@ logs
 .yarn/*
 .yarn/install-state.gz
 
-./ca.crt
-./ca.key
-./cert.crt
-./cert.key
-./192.168.8.134+1-key.pem
-./192.168.8.134+1.pem
+ca.crt
+ca.key
+cert.crt
+cert.key
+192.168.8.134+1-key.pem
+192.168.8.134+1.pem
