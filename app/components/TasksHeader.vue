@@ -16,9 +16,9 @@ const exportToExcel = async (name: string = "report.xlsx") => {
     printing.value = true;
     const data = await Promise.resolve(
       tasks.map((task) => ({
-        [t("task.title")]: ar ? task.titleAr : task.titleEn,
-        [t("task.description")]: ar ? task.descriptionAr : task.descriptionEn,
-        [t("task.issuer")]: ar ? task.issuerAr : task.issuerEn,
+        [t("task.title")]: task.title,
+        [t("task.description")]: task.description,
+        [t("task.issuer")]: task.issuer,
         [t("task.createdAt")]: task.createdAt.split("T")[0],
         [t("task.finishedAt")]: task.finishedAt ? task.finishedAt.split("T")[0] : "N/A",
         [t("task.status")]: task.isFinished ? t("task.done") : t("task.new"),

@@ -11,7 +11,6 @@ const { task, ar } = defineProps<{
 const { t } = useI18n();
 
 const cardData = computed(() => ({
-  // title: ar ? task.titleAr : task.titleEn,
   issuer: task.issuer,
   createdAt: task.createdAt.split("T")[0],
   finishedAt: task.finishedAt ? task.finishedAt.split("T")[0] : t("common.N/A"),
