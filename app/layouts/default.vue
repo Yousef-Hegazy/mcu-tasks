@@ -1,35 +1,31 @@
 <script setup lang="ts">
 import Toaster from "@/components/ui/toast/Toaster.vue";
 
-const { locale, t } = useI18n();
+// const fontFamily = computed(() => {
+//   // Apply different fonts based on language
+//   if (locale.value === "ar") {
+//     return "'Noto Sans Arabic', serif"; // Arabic font
+//   } else {
+//     return "'Noto Sans', sans-serif"; // Default font for English and others
+//   }
+// });
 
-const getDir = computed<"rtl" | "ltr">(() => (locale.value === "ar" ? "rtl" : "ltr"));
-
-const fontFamily = computed(() => {
-  // Apply different fonts based on language
-  if (locale.value === "ar") {
-    return "'Noto Sans Arabic', serif"; // Arabic font
-  } else {
-    return "'Noto Sans', sans-serif"; // Default font for English and others
-  }
-});
-
-useHead(() => ({
-  title: t("title"),
+useHead({
+  title: "طلبات عمل المحايد",
   htmlAttrs: {
-    lang: locale,
-    dir: getDir.value,
+    lang: "ar",
+    dir: "rtl",
   },
   style: [
     {
       children: `
         body {
-          font-family: ${fontFamily.value};
+          font-family: 'Noto Sans Arabic', serif;
         }
       `,
     },
   ],
-}));
+});
 </script>
 
 <template>
@@ -37,9 +33,7 @@ useHead(() => ({
     <nav
       class="flex flex-row items-center p-4 shadow-lg justify-between rounded-b-lg border-b border-neutral-300 dark:border-neutral-600"
     >
-      <NuxtLinkLocale to="/" class="text-xl font-bold">
-        {{ $t("title") }}
-      </NuxtLinkLocale>
+      <NuxtLinkLocale to="/" class="text-xl font-bold"> طلبات عمل المحايد </NuxtLinkLocale>
 
       <ul class="flex flex-row items-center gap-x-4">
         <Button

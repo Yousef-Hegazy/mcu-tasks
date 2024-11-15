@@ -1,12 +1,39 @@
 <script setup lang="ts">
 import type { Task } from "~~/models/Task";
+import { useToast } from "@/components/ui/toast";
 
-const { t } = useI18n();
-
-const { task, ar } = defineProps<{
+const { task } = defineProps<{
   task: Task;
-  ar: boolean;
 }>();
+
+const { toast } = useToast();
+
+const queryClient = useQueryClient();
+
+const deleteMutation = useMutation({
+  mutationFn: async () => {
+    return await $fetch(`/api/tasks/${task.id}`, {
+      method: "delete",
+    });
+  },
+  onSuccess: async () => {
+    await queryClient.invalidateQueries({
+      queryKey: ["tasks"],
+    });
+
+    toast({
+      title: "تم الحذف بنجاح",
+      description: "تم حذف الطلب بنجاح",
+    });
+  },
+  onError: (error) => {
+    console.error(error);
+    toast({
+      title: "حدث خطأ",
+      description: "حاول مرة اخرى",
+    });
+  },
+});
 
 let actions: {
   separator: boolean;
@@ -20,7 +47,7 @@ if (import.meta.client) {
   actions = [
     {
       separator: false,
-      name: task.isFinished ? "restore" : "finish",
+      name: task.isFinished ? "استعادة" : "تم الانتهاء",
       onClick: () => {
         console.log("Done");
       },
@@ -28,15 +55,15 @@ if (import.meta.client) {
     },
     {
       separator: false,
-      name: "copy",
+      name: "نسخ",
       onClick: () => {
         const text = `
-${t("task.title")}: ${task.title}
-${t("task.description")}: ${task.description}
-${t("task.issuer")}: ${task.issuer}
-${t("task.createdAt")}: ${task.createdAt.split("T")[0]}
-${t("task.finishedAt")}: ${task.finishedAt ? task.finishedAt.split("T")[0] : "N/A"}
-${t("task.status")}: ${task.isFinished ? t("task.done") : t("task.new")}
+العنوان: ${task.title}
+الوصف: ${task.description}
+مقدم الطلب: ${task.issuer}
+تاريخ الانشاء: ${task.createdAt.split("T")[0]}
+تاريخ الانتهاء: ${task.finishedAt ? task.finishedAt.split("T")[0] : "لا يوجد"}
+الحالة: ${task.isFinished ? "منتهي" : "جديد"}
       `;
         if (navigator.clipboard) {
           navigator.clipboard
@@ -55,7 +82,7 @@ ${t("task.status")}: ${task.isFinished ? t("task.done") : t("task.new")}
     },
     {
       separator: true,
-      name: "edit",
+      name: "تعديل",
       onClick: () => {
         console.log("edit");
       },
@@ -63,10 +90,8 @@ ${t("task.status")}: ${task.isFinished ? t("task.done") : t("task.new")}
     },
     {
       separator: false,
-      name: "delete",
-      onClick: () => {
-        console.log("delete");
-      },
+      name: "حذف",
+      onClick: deleteMutation.mutateAsync,
       icon: "hugeicons:delete-03",
       class: "!text-rose-700 dark:!text-rose-400 hover:!text-rose-50 hover:dark:!text-rose-50 hover:!bg-rose-700",
       // iconClass: "text-inherit",
@@ -85,13 +110,19 @@ ${t("task.status")}: ${task.isFinished ? t("task.done") : t("task.new")}
 
     <DropdownMenuContent>
       <template v-for="a in actions" :key="a.name">
-        <DropdownMenuItem :dir="ar ? 'rtl' : 'ltr'" :class="a.class">
+        <DropdownMenuItem :disabled="deleteMutation.isPending.value" dir="rtl" :class="a.class">
           <div
             @click="a.onClick"
             class="w-full cursor-pointer flex flex-row items-center justify-start text-start gap-x-2"
           >
-            <Icon :name="a.icon" class="text-xl" />
-            <p>{{ $t(`task.actions.${a.name}`) }}</p>
+            <Icon
+              :name="deleteMutation.isPending.value ? 'hugeicons:loading-03' : a.icon"
+              class="text-xl"
+              :class="{
+                'animate-spin': deleteMutation.isPending.value,
+              }"
+            />
+            <p>{{ a.name }}</p>
           </div>
         </DropdownMenuItem>
 

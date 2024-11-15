@@ -2,11 +2,8 @@
 import * as XLSX from "xlsx";
 import type { Task } from "~~/models/Task";
 
-const { t } = useI18n();
-
-const { tasks, ar } = defineProps<{
+const { tasks } = defineProps<{
   tasks: Task[];
-  ar: boolean;
 }>();
 
 const printing = ref(false);
@@ -16,12 +13,12 @@ const exportToExcel = async (name: string = "report.xlsx") => {
     printing.value = true;
     const data = await Promise.resolve(
       tasks.map((task) => ({
-        [t("task.title")]: task.title,
-        [t("task.description")]: task.description,
-        [t("task.issuer")]: task.issuer,
-        [t("task.createdAt")]: task.createdAt.split("T")[0],
-        [t("task.finishedAt")]: task.finishedAt ? task.finishedAt.split("T")[0] : "N/A",
-        [t("task.status")]: task.isFinished ? t("task.done") : t("task.new"),
+        ["العنوان"]: task.title,
+        ["الوصف"]: task.description,
+        ["مقدم الطلب"]: task.issuer,
+        ["تاريخ الانشاء"]: task.createdAt.split("T")[0],
+        ["تاريخ الانتهاء"]: task.finishedAt ? task.finishedAt.split("T")[0] : "N/A",
+        ["الحالة"]: task.isFinished ? "منتهي" : "جديد",
       }))
     );
     const sheet = XLSX.utils.json_to_sheet(data);
@@ -51,14 +48,14 @@ const tasksStats = computed(() => {
     class="flex flex-row items-center justify-between mb-4 rounded-md ring-1 ring-neutral-300 dark:ring-neutral-600 p-4 shadow-lg bg-blue-800/[0.05] hover:bg-blue-800/[0.07] dark:bg-background dark:hover:bg-white/5 transition-all backdrop-blur-lg"
   >
     <div class="flex flex-row items-center gap-x-2">
-      <h3>{{ $t("requests") }}</h3>
+      <h3>الطلبات</h3>
       <AppTooltip>
         <p class="text-xs text-blue-50 bg-blue-700 px-2 py-1 rounded">{{ tasks.length }}</p>
         <template #content>
           <div class="flex flex-col gap-y-3">
             <div class="flex flex-row items-center gap-x-2">
               <span class="p-1 rounded-full bg-blue-600"></span>
-              <p>{{ $t("task.new") }}:</p>
+              <p>جديد:</p>
               <p class="text-xs">
                 {{ tasksStats.newTasks }}
               </p>
@@ -66,7 +63,7 @@ const tasksStats = computed(() => {
 
             <div class="flex flex-row items-center gap-x-2">
               <span class="p-1 rounded-full bg-teal-600"></span>
-              <p>{{ $t("task.done") }}:</p>
+              <p>منتهي:</p>
               <p class="text-xs">
                 {{ tasksStats.finished }}
               </p>
@@ -79,8 +76,8 @@ const tasksStats = computed(() => {
     <div class="flex flex-row gap-x-3">
       <AddTask />
 
-      <AppTooltip :title="$t('downloadReport')">
-        <Button size="icon" variant="outline" @click="() => exportToExcel('Report.xlsx')">
+      <AppTooltip title="تحميل التقرير">
+        <Button size="icon" variant="outline" @click="() => exportToExcel('تقرير طلبات المحايد.xlsx')">
           <Icon
             :name="printing ? 'hugeicons:loading-03' : 'hugeicons:inbox-download'"
             class="text-2xl"

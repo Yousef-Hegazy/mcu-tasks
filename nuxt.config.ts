@@ -8,14 +8,14 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
   },
-  devServer: {
-    https: {
-      key: "./192.168.8.134+1-key.pem",
-      cert: "./192.168.8.134+1.pem",
-    },
-    host: "192.168.8.134", // Replace with your IP
-    port: 3000,
-  },
+  // devServer: {
+  //   https: {
+  //     key: "./192.168.8.134+1-key.pem",
+  //     cert: "./192.168.8.134+1.pem",
+  //   },
+  //   host: "192.168.8.134", // Replace with your IP
+  //   port: 3000,
+  // },
   experimental: {
     scanPageMeta: "after-resolve",
     sharedPrerenderData: false,
@@ -41,21 +41,34 @@ export default defineNuxtConfig({
     supabaseApiKey: process.env.SUPABASE_API_KEY,
   },
 
-  i18n: {
-    locales: [
-      { code: "ar", language: "ar-SA", file: "ar.json", dir: "rtl", name: "العربية" },
-      { code: "en", language: "en-US", file: "en.json", name: "English", dir: "ltr" },
-    ],
-    defaultLocale: "ar",
-    lazy: true,
-    langDir: "locales/", // Ensure this path is correct
-    strategy: "prefix",
-  },
+  // i18n: {
+  //   locales: [
+  //     { code: "ar", language: "ar-SA", file: "ar.json", dir: "rtl", name: "العربية" },
+  //     { code: "en", language: "en-US", file: "en.json", name: "English", dir: "ltr" },
+  //   ],
+  //   defaultLocale: "ar",
+  //   lazy: true,
+  //   langDir: "locales/", // Ensure this path is correct
+  //   strategy: "prefix",
+  // },
 
   googleFonts: {
     families: {
       "Noto Sans Arabic": true,
       "Noto Sans": true,
+    },
+  },
+
+  vueQuery: {
+    queryClientOptions: {
+      defaultOptions: {
+        queries: {
+          staleTime: Infinity,
+          refetchOnMount: false,
+          refetchOnReconnect: true,
+          refetchOnWindowFocus: false,
+        },
+      },
     },
   },
 
@@ -85,5 +98,6 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
     "shadcn-nuxt",
+    "@hebilicious/vue-query-nuxt",
   ],
 });
